@@ -19,11 +19,11 @@ public class TeamService {
         return optionalTeam.orElseThrow(()-> new RuntimeException("this team don't exist"));
     }
 
-    public Team createTeam(Team team){
-        return teamRepository.save(team);
+    public void createTeam(Team team){
+        teamRepository.save(team);
     }
 
-    public Team updateTeam(Long teamId, TeamUpdateDTO teamUpdateDTO){
+    public void updateTeam(Long teamId, TeamUpdateDTO teamUpdateDTO){
         Team teamBD = findTeamById(teamId);
 
         if(!teamBD.getName().equals(teamUpdateDTO.getName())){
@@ -33,7 +33,15 @@ public class TeamService {
             teamBD.setPlayers(teamUpdateDTO.getPlayers());
         }
 
-        return createTeam(teamBD);
+        createTeam(teamBD);
     }
 
+    public void deleteTeam(Long teamId){
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if(optionalTeam.isPresent()){
+            teamRepository.deleteById(teamId);
+        }else{
+            throw new RuntimeException("this team don't exist");
+        }
+    }
 }
