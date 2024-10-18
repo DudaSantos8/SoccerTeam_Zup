@@ -6,7 +6,8 @@ import com.soccer.soccer_team.controllers.dtos.TeamResponseDTO;
 import com.soccer.soccer_team.models.Team;
 
 public class TeamMapper {
-    public static Team fromTeamResponseDto(TeamRegisterDTO teamRegisterDTO){
+
+    public static Team forTeam(TeamRegisterDTO teamRegisterDTO){
         Team team = new Team();
         team.setName(teamRegisterDTO.getName());
         team.setPlayers(teamRegisterDTO.getPlayers());
@@ -14,7 +15,7 @@ public class TeamMapper {
         return team;
     }
 
-    public static TeamResponseDTO fromTeamResponseDto(Team team){
+    public static TeamResponseDTO forTeamResponseDto(Team team){
         ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(team, TeamResponseDTO.class);
     }

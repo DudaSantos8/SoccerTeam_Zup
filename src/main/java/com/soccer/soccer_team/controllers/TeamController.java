@@ -23,7 +23,7 @@ public class TeamController {
     @GetMapping("/{teamId}")
     public ResponseEntity<?> showAllTeams(@PathVariable Long teamId){
         try{
-            return ResponseEntity.status(200).body(TeamMapper.fromTeamResponseDto(teamService.findTeamById(teamId)));
+            return ResponseEntity.status(200).body(TeamMapper.forTeamResponseDto(teamService.findTeamById(teamId)));
         }catch (Exception e){
             return ResponseEntity.status(404).body(Map.of("message", e.getMessage()));
         }
@@ -33,7 +33,7 @@ public class TeamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createTeam(@RequestBody @Valid TeamRegisterDTO teamRegisterDTO){
-        teamService.createTeam(TeamMapper.fromTeamResponseDto(teamRegisterDTO));
+        teamService.createTeam(TeamMapper.forTeam(teamRegisterDTO));
     }
 
     @PutMapping("/{teamId}")
